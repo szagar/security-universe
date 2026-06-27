@@ -1,6 +1,6 @@
 # GitHub and PyPI Release Plan
 
-This document covers the work required to put `security-universes` on GitHub
+This document covers the work required to put `security-universe` on GitHub
 and publish releases to PyPI.
 
 ## Release Goals
@@ -9,7 +9,7 @@ and publish releases to PyPI.
 - automated CI for tests, linting, and typing
 - buildable Python package
 - TestPyPI validation before first PyPI release
-- PyPI release for `security-universes`
+- PyPI release for `security-universe`
 - repeatable release process
 
 ## Repository Setup
@@ -19,7 +19,7 @@ and publish releases to PyPI.
 3. Update root `README.md` with install, quick start, and documentation links.
 4. Confirm `.gitignore` excludes local artifacts such as `.venv/`, caches,
    build outputs, and editor swap files.
-5. Create a GitHub repository named `security-universes`.
+5. Create a GitHub repository named `security-universe`.
 6. Push the initial implementation branch.
 7. Protect the default branch after CI is working.
 
@@ -37,7 +37,7 @@ Before release, fill:
 
 ```toml
 [project]
-name = "security-universes"
+name = "security-universe"
 description = "Security universe management for trading systems"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -51,16 +51,16 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/szagar/security-universes"
-Repository = "https://github.com/szagar/security-universes"
-Issues = "https://github.com/szagar/security-universes/issues"
+Homepage = "https://github.com/szagar/security-universe"
+Repository = "https://github.com/szagar/security-universe"
+Issues = "https://github.com/szagar/security-universe/issues"
 ```
 
 The planned CLI command is:
 
 ```toml
 [project.scripts]
-securities = "security_universes.cli:main"
+securities = "security_universe.cli:main"
 ```
 
 ## Package Data
@@ -68,8 +68,8 @@ securities = "security_universes.cli:main"
 Ensure packaged resolver YAML files are included in distributions:
 
 ```text
-src/security_universes/resolvers/data/index_option_rules.yaml
-src/security_universes/resolvers/data/adjusted_option_rules.yaml
+src/security_universe/resolvers/data/index_option_rules.yaml
+src/security_universe/resolvers/data/adjusted_option_rules.yaml
 ```
 
 The build backend must include these files in both wheel and sdist.
@@ -154,9 +154,9 @@ Breaking changes require a major version once the package reaches `1.0.0`.
 
 The first PyPI release is ready when:
 
-- `pip install security-universes` works
-- `import security_universes` works
-- `from security_universes import Security, UniverseRegistry` works
+- `pip install security-universe` works
+- `import security_universe` works
+- `from security_universe import Security, UniverseRegistry` works
 - `securities --help` works
 - README quick start runs
 - examples run

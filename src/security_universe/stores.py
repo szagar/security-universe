@@ -6,8 +6,8 @@ import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
 
-from security_universes.exceptions import DuplicateMemberError, DuplicateUniverseError
-from security_universes.models import Security, Universe, UniverseMember
+from security_universe.exceptions import DuplicateMemberError, DuplicateUniverseError
+from security_universe.models import Security, Universe, UniverseMember
 
 
 def security_key(security: Security | str) -> str:

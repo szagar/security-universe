@@ -1,13 +1,13 @@
 """Typed security universe management for trading systems."""
 
-from security_universes.exceptions import (
+from security_universe.exceptions import (
     DuplicateMemberError,
     DuplicateUniverseError,
-    SecurityUniversesError,
+    SecurityUniverseError,
     UniverseNotFoundError,
     ValidationError,
 )
-from security_universes.models import (
+from security_universe.models import (
     ExpirationSession,
     OptionType,
     Security,
@@ -18,9 +18,9 @@ from security_universes.models import (
     UniverseMember,
     UniverseType,
 )
-from security_universes.protocols import SecurityIdResolver
-from security_universes.registry import UniverseRegistry
-from security_universes.stores import InMemoryUniverseStore, SQLiteUniverseStore
+from security_universe.protocols import SecurityIdResolver
+from security_universe.registry import UniverseRegistry
+from security_universe.stores import InMemoryUniverseStore, SQLiteUniverseStore
 
 __all__ = [
     "DuplicateMemberError",
@@ -30,7 +30,7 @@ __all__ = [
     "Security",
     "SecurityIdResolver",
     "SecurityType",
-    "SecurityUniversesError",
+    "SecurityUniverseError",
     "SettlementType",
     "SourceType",
     "InMemoryUniverseStore",
@@ -45,6 +45,6 @@ __all__ = [
 
 
 def main() -> None:
-    from security_universes.cli import main as cli_main
+    from security_universe.cli import main as cli_main
 
     raise SystemExit(cli_main())

@@ -1,6 +1,6 @@
-# security-universes
+# security-universe
 
-`security-universes` is a lightweight Python package for representing tradable
+`security-universe` is a lightweight Python package for representing tradable
 instruments as `Security` objects and organizing them into reusable named
 collections called `Universe` objects.
 
@@ -23,9 +23,9 @@ belongs on `UniverseMember`.
 ## Example
 
 ```python
-from security_universes import Security, SecurityType, UniverseRegistry
+from security_universe import Security, SecurityType, UniverseRegistry
 
-registry = UniverseRegistry.sqlite("universes.db")
+registry = UniverseRegistry.sqlite("universe.db")
 
 registry.create_universe("restricted", universe_type="restricted")
 registry.create_universe("sp500", universe_type="index")

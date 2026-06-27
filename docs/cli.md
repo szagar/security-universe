@@ -55,7 +55,7 @@ securities universe resolve --include sp500 --exclude restricted
 ```
 
 ```bash
-securities --db universes.db \
+securities --db universe.db \
   --option-rules my_index_option_rules.yaml \
   universe add spx SPXW260619C06100000 --security-type option
 ```

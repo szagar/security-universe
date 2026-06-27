@@ -3,7 +3,7 @@ from decimal import Decimal
 
 import pytest
 
-from security_universes import (
+from security_universe import (
     DuplicateMemberError,
     DuplicateUniverseError,
     SQLiteUniverseStore,
@@ -16,7 +16,7 @@ from security_universes import (
 
 
 def test_sqlite_universe_crud(tmp_path) -> None:
-    store = SQLiteUniverseStore(tmp_path / "universes.db")
+    store = SQLiteUniverseStore(tmp_path / "universe.db")
     universe = store.create_universe(
         Universe(name="restricted", universe_type=UniverseType.RESTRICTED)
     )
@@ -31,7 +31,7 @@ def test_sqlite_universe_crud(tmp_path) -> None:
 
 
 def test_sqlite_duplicate_universe_raises(tmp_path) -> None:
-    store = SQLiteUniverseStore(tmp_path / "universes.db")
+    store = SQLiteUniverseStore(tmp_path / "universe.db")
     store.create_universe(Universe(name="restricted"))
 
     with pytest.raises(DuplicateUniverseError):
@@ -39,7 +39,7 @@ def test_sqlite_duplicate_universe_raises(tmp_path) -> None:
 
 
 def test_sqlite_add_remove_contains_member(tmp_path) -> None:
-    store = SQLiteUniverseStore(tmp_path / "universes.db")
+    store = SQLiteUniverseStore(tmp_path / "universe.db")
     store.create_universe(Universe(name="restricted"))
     member = UniverseMember(
         universe_name="restricted",
@@ -59,7 +59,7 @@ def test_sqlite_add_remove_contains_member(tmp_path) -> None:
 
 
 def test_sqlite_duplicate_member_uses_security_id(tmp_path) -> None:
-    store = SQLiteUniverseStore(tmp_path / "universes.db")
+    store = SQLiteUniverseStore(tmp_path / "universe.db")
     store.create_universe(Universe(name="options"))
     store.add_member(
         UniverseMember(
@@ -84,7 +84,7 @@ def test_sqlite_duplicate_member_uses_security_id(tmp_path) -> None:
 
 
 def test_sqlite_active_and_expired_member_filtering(tmp_path) -> None:
-    store = SQLiteUniverseStore(tmp_path / "universes.db")
+    store = SQLiteUniverseStore(tmp_path / "universe.db")
     store.create_universe(Universe(name="restricted"))
     now = datetime.now(timezone.utc)
 
@@ -116,7 +116,7 @@ def test_sqlite_active_and_expired_member_filtering(tmp_path) -> None:
 
 
 def test_sqlite_nested_option_security_round_trip(tmp_path) -> None:
-    store = SQLiteUniverseStore(tmp_path / "universes.db")
+    store = SQLiteUniverseStore(tmp_path / "universe.db")
     store.create_universe(Universe(name="options"))
     member = UniverseMember(
         universe_name="options",
@@ -140,7 +140,7 @@ def test_sqlite_nested_option_security_round_trip(tmp_path) -> None:
 
 
 def test_sqlite_persists_across_store_instances(tmp_path) -> None:
-    path = tmp_path / "universes.db"
+    path = tmp_path / "universe.db"
     first = SQLiteUniverseStore(path)
     first.create_universe(Universe(name="restricted"))
     first.add_member(

@@ -400,7 +400,7 @@ wheels = [
 ]
 
 [[package]]
-name = "security-universes"
+name = "security-universe"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [

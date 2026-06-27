@@ -1,6 +1,6 @@
 """Custom SecurityIdResolver example."""
 
-from security_universes import Security, UniverseRegistry
+from security_universe import Security, UniverseRegistry
 
 
 class PrefixResolver:

@@ -94,8 +94,8 @@ The OCC parser must:
 Default package rules live in:
 
 ```text
-src/security_universes/resolvers/data/index_option_rules.yaml
-src/security_universes/resolvers/data/adjusted_option_rules.yaml
+src/security_universe/resolvers/data/index_option_rules.yaml
+src/security_universe/resolvers/data/adjusted_option_rules.yaml
 ```
 
 Resolvers must load these rules from package data. Rule tables must not be

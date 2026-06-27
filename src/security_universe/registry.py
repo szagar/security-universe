@@ -7,9 +7,9 @@ from decimal import Decimal
 from pathlib import Path
 from typing import Any
 
-from security_universes.exceptions import UniverseNotFoundError
-from security_universes.import_export import read_members, write_members
-from security_universes.models import (
+from security_universe.exceptions import UniverseNotFoundError
+from security_universe.import_export import read_members, write_members
+from security_universe.models import (
     Security,
     SecurityType,
     SourceType,
@@ -17,8 +17,8 @@ from security_universes.models import (
     UniverseMember,
     UniverseType,
 )
-from security_universes.protocols import SecurityIdResolver, UniverseStore
-from security_universes.stores import (
+from security_universe.protocols import SecurityIdResolver, UniverseStore
+from security_universe.stores import (
     InMemoryUniverseStore,
     SQLiteUniverseStore,
     security_key,

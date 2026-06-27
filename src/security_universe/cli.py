@@ -1,4 +1,4 @@
-"""Command line interface for security-universes."""
+"""Command line interface for security-universe."""
 
 from __future__ import annotations
 
@@ -10,16 +10,16 @@ from typing import Any, Sequence
 
 from pydantic import BaseModel
 
-from security_universes.exceptions import SecurityUniversesError
-from security_universes.models import Security, SecurityType
-from security_universes.registry import UniverseRegistry
-from security_universes.resolvers import OCCSecurityIdResolver, load_default_option_rules
-from security_universes.stores import SQLiteUniverseStore
+from security_universe.exceptions import SecurityUniverseError
+from security_universe.models import Security, SecurityType
+from security_universe.registry import UniverseRegistry
+from security_universe.resolvers import OCCSecurityIdResolver, load_default_option_rules
+from security_universe.stores import SQLiteUniverseStore
 
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="securities")
-    parser.add_argument("--db", default="security-universes.db", help="SQLite database path")
+    parser.add_argument("--db", default="security-universe.db", help="SQLite database path")
     parser.add_argument("--option-rules", help="YAML option-root rule override path")
     parser.add_argument("--format", choices=["text", "json"], default="text")
 
@@ -103,7 +103,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
     try:
         result = dispatch(args)
-    except (SecurityUniversesError, ValueError) as exc:
+    except (SecurityUniverseError, ValueError) as exc:
         print(str(exc), file=sys.stderr)
         return 1
 

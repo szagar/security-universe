@@ -2,8 +2,8 @@ import json
 from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 
-from security_universes import Security, SecurityType, UniverseRegistry
-from security_universes.resolvers import OCCSecurityIdResolver
+from security_universe import Security, SecurityType, UniverseRegistry
+from security_universe.resolvers import OCCSecurityIdResolver
 
 
 def test_registry_json_export_import_round_trip(tmp_path) -> None:

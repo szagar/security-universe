@@ -1,6 +1,6 @@
 """Resolver implementations and packaged resolver data."""
 
-from security_universes.resolvers.occ import (
+from security_universe.resolvers.occ import (
     OCCSecurityIdResolver,
     ParsedOCCSymbol,
     format_strike,
