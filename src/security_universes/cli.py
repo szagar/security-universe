@@ -85,6 +85,15 @@ def build_parser() -> argparse.ArgumentParser:
     store_commands.add_parser("init")
     store_commands.add_parser("info")
 
+    import_command = commands.add_parser("import", help="Import universe members")
+    import_command.add_argument("universe")
+    import_command.add_argument("path")
+
+    export_command = commands.add_parser("export", help="Export universe members")
+    export_command.add_argument("universe")
+    export_command.add_argument("path")
+    export_command.add_argument("--all", action="store_true")
+
     commands.add_parser("doctor", help="Check local configuration")
     return parser
 
@@ -111,6 +120,10 @@ def dispatch(args: argparse.Namespace) -> Any:
         return dispatch_rules(args)
     if args.command == "store":
         return dispatch_store(args)
+    if args.command == "import":
+        return dispatch_import(args)
+    if args.command == "export":
+        return dispatch_export(args)
     if args.command == "doctor":
         SQLiteUniverseStore(args.db).close()
         return {"ok": True, "db": args.db}
@@ -194,6 +207,18 @@ def dispatch_store(args: argparse.Namespace) -> Any:
     if args.store_command == "info":
         return {"db": str(Path(args.db)), "exists": Path(args.db).exists()}
     raise ValueError(f"Unknown store command: {args.store_command}")
+
+
+def dispatch_import(args: argparse.Namespace) -> Any:
+    registry = build_registry(args, use_resolver=True)
+    members = registry.import_members(args.universe, args.path)
+    return {"imported": len(members), "universe": args.universe}
+
+
+def dispatch_export(args: argparse.Namespace) -> Any:
+    registry = build_registry(args)
+    members = registry.export_members(args.universe, args.path, active_only=not args.all)
+    return {"exported": len(members), "path": args.path, "universe": args.universe}
 
 
 def build_registry(

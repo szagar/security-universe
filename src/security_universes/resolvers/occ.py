@@ -165,6 +165,12 @@ class OCCSecurityIdResolver:
         return self._option_rules
 
     def resolve(self, security: Security) -> Security:
+        normalized_symbol = security.symbol.replace(" ", "").upper()
+        if security.security_type != SecurityType.OPTION and not OCC_RE.match(
+            normalized_symbol
+        ):
+            return security
+
         parsed = parse_occ_symbol(security.symbol)
         rule = self._option_rules.get(parsed.option_root, {})
 

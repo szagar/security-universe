@@ -130,3 +130,29 @@ def test_cli_rules_validate(tmp_path, capsys) -> None:
 
     output = json.loads(capsys.readouterr().out)
     assert output == {"rules": ["TEST"], "valid": True}
+
+
+def test_cli_import_export_json(tmp_path, capsys) -> None:
+    db = tmp_path / "universes.db"
+    import_path = tmp_path / "members.json"
+    export_path = tmp_path / "exported.json"
+    import_path.write_text(
+        json.dumps(
+            [
+                {
+                    "security": {"symbol": "AAPL", "security_type": "stock"},
+                    "reason": "manual restriction",
+                }
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+    assert main(["--db", str(db), "universe", "create", "restricted"]) == 0
+    assert main(["--db", str(db), "import", "restricted", str(import_path)]) == 0
+    assert main(["--db", str(db), "export", "restricted", str(export_path)]) == 0
+
+    capsys.readouterr()
+    exported = json.loads(export_path.read_text(encoding="utf-8"))
+    assert exported[0]["security"]["symbol"] == "AAPL"
+    assert exported[0]["reason"] == "manual restriction"

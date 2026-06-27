@@ -1,17 +1,16 @@
 """SQLite-backed registry example."""
 
+from tempfile import TemporaryDirectory
+
+from security_universes import SecurityType, UniverseRegistry
+
 
 def main() -> None:
-    # from security_universes import Security, SecurityType, UniverseRegistry
-    #
-    # registry = UniverseRegistry.sqlite("universes.db")
-    # registry.create_universe("restricted", universe_type="restricted")
-    # registry.add_member(
-    #     "restricted",
-    #     Security(symbol="AAPL", security_type=SecurityType.STOCK),
-    # )
-    # print(registry.list_members("restricted"))
-    raise NotImplementedError("Example becomes executable after implementation.")
+    with TemporaryDirectory() as tmpdir:
+        registry = UniverseRegistry.sqlite(f"{tmpdir}/universes.db")
+        registry.create_universe("restricted", universe_type="restricted")
+        registry.add_member("restricted", "AAPL", security_type=SecurityType.STOCK)
+        print([member.security.symbol for member in registry.list_members("restricted")])
 
 
 if __name__ == "__main__":

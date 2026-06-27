@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from security_universes.exceptions import UniverseNotFoundError
+from security_universes.import_export import read_members, write_members
 from security_universes.models import (
     Security,
     SecurityType,
@@ -158,6 +159,34 @@ class UniverseRegistry:
 
         return list(resolved.values())
 
+    def import_members(self, universe_name: str, path: str | Path) -> list[UniverseMember]:
+        self._require_universe(universe_name)
+        imported: list[UniverseMember] = []
+        for member in read_members(path, universe_name):
+            security = self._resolve_security(member.security)
+            imported_member = member.model_copy(
+                update={
+                    "universe_name": universe_name,
+                    "security": security,
+                    "member_id": member.member_id
+                    or f"{universe_name}:{security_key(security)}",
+                },
+                deep=True,
+            )
+            imported.append(self._store.add_member(imported_member))
+        return imported
+
+    def export_members(
+        self,
+        universe_name: str,
+        path: str | Path,
+        *,
+        active_only: bool = True,
+    ) -> list[UniverseMember]:
+        members = self.list_members(universe_name, active_only=active_only)
+        write_members(path, members)
+        return members
+
     def _active_enabled_members(self, universe_name: str) -> list[UniverseMember]:
         universe = self._require_universe(universe_name)
         if not universe.enabled:
@@ -183,4 +212,9 @@ class UniverseRegistry:
         )
         if self._security_id_resolver is None:
             return coerced
-        return self._security_id_resolver.resolve(coerced)
+        return self._resolve_security(coerced)
+
+    def _resolve_security(self, security: Security) -> Security:
+        if self._security_id_resolver is None:
+            return security
+        return self._security_id_resolver.resolve(security)
