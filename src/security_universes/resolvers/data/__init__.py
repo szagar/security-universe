@@ -1,0 +1,1 @@
+"""Packaged resolver configuration data."""

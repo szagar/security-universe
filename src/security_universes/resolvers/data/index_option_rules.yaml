@@ -1,0 +1,19 @@
+SPX:
+  underlying: SPX
+  expiration_session: am
+  settlement_type: cash
+
+SPXW:
+  underlying: SPX
+  expiration_session: pm
+  settlement_type: cash
+
+NDX:
+  underlying: NDX
+  expiration_session: am
+  settlement_type: cash
+
+NDXP:
+  underlying: NDX
+  expiration_session: pm
+  settlement_type: cash

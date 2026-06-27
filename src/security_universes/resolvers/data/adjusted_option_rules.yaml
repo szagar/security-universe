@@ -1,0 +1,11 @@
+AAPL1:
+  underlying: AAPL
+  expiration_session: pm
+  settlement_type: physical
+  contract_multiplier: 100
+  deliverable_type: adjusted
+  deliverable_description: "Adjusted option contract from corporate action"
+  deliverable:
+    cash: 12.37
+    shares:
+      AAPL: 100
