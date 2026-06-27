@@ -38,10 +38,10 @@ Before release, fill:
 ```toml
 [project]
 name = "security-universes"
-description = "Typed security universe management for trading systems"
+description = "Security universe management for trading systems"
 readme = "README.md"
 requires-python = ">=3.12"
-license = "..."
+license = "MIT"
 keywords = ["trading", "securities", "universes", "watchlists"]
 classifiers = [
   "Development Status :: 3 - Alpha",
@@ -60,7 +60,7 @@ The planned CLI command is:
 
 ```toml
 [project.scripts]
-securities = "security_universes.cli:app"
+securities = "security_universes.cli:main"
 ```
 
 ## Package Data
@@ -102,8 +102,9 @@ Create `.github/workflows/release.yml`.
 
 Recommended trigger:
 
-- GitHub release publication, or
-- pushed tags matching `v*`
+- GitHub release publication
+
+Use the separate TestPyPI workflow for manual pre-release validation.
 
 Recommended release flow:
 
@@ -118,15 +119,15 @@ environment.
 
 Before first release:
 
-- choose license
-- update `pyproject.toml` metadata
-- update CLI script to `securities`
-- ensure package data is included
-- replace placeholder example bodies with executable examples
-- pass all tests
-- pass lint and type checks
-- build wheel and sdist
-- inspect generated distributions
+- choose license: done
+- update `pyproject.toml` metadata: done
+- update CLI script to `securities`: done
+- ensure package data is included: done
+- replace placeholder example bodies with executable examples: done
+- pass all tests: done locally
+- pass lint and type checks: done locally
+- build wheel and sdist: done locally
+- inspect generated distributions: done locally
 - install from local wheel in a clean virtual environment
 - publish to TestPyPI
 - install from TestPyPI in a clean virtual environment

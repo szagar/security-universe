@@ -1,0 +1,29 @@
+"""Public protocols for extension points."""
+
+from __future__ import annotations
+
+from typing import Protocol
+
+from security_universes.models import Security, Universe, UniverseMember
+
+
+class SecurityIdResolver(Protocol):
+    def resolve(self, security: Security) -> Security: ...
+
+
+class UniverseStore(Protocol):
+    def create_universe(self, universe: Universe) -> Universe: ...
+    def delete_universe(self, name: str) -> None: ...
+    def get_universe(self, name: str) -> Universe | None: ...
+    def list_universes(self) -> list[Universe]: ...
+
+    def add_member(self, member: UniverseMember) -> UniverseMember: ...
+    def remove_member(self, universe_name: str, security: Security | str) -> None: ...
+    def list_members(
+        self,
+        universe_name: str,
+        *,
+        active_only: bool = True,
+    ) -> list[UniverseMember]: ...
+    def contains(self, universe_name: str, security: Security | str) -> bool: ...
+

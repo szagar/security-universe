@@ -81,7 +81,8 @@ The OCC parser must:
 
 - remove spaces and uppercase input
 - reject invalid OCC symbols
-- parse option root using 1-6 uppercase letters
+- parse option root using 1-6 uppercase alphanumeric characters, starting
+  with a letter, so adjusted roots such as `AAPL1` are supported
 - parse expiry as `20YY-MM-DD`
 - parse `C` as call and `P` as put
 - parse strike as `Decimal(strike_digits) / Decimal("1000")`
