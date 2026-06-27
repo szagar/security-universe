@@ -1,6 +1,7 @@
 # Implementation Plan
 
-The project is pre-implementation. Build from the docs in this directory.
+The first implementation slice is underway on the feature branch. This document
+tracks the remaining path to a first PyPI release.
 
 ## Phase 1: Package Foundation
 
@@ -10,6 +11,8 @@ The project is pre-implementation. Build from the docs in this directory.
 - expose CLI command as `securities`
 - add package exports
 - add CI configuration
+
+Status: implemented.
 
 ## Phase 2: Core Models
 
@@ -25,6 +28,8 @@ Acceptance:
 - model tests pass
 - README model snippets are executable
 
+Status: implemented.
+
 ## Phase 3: Resolver Layer
 
 - implement `SecurityIdResolver`
@@ -39,6 +44,8 @@ Acceptance:
 - resolver does not mutate input security
 - rules are loaded from package data, not hard-coded
 
+Status: implemented.
+
 ## Phase 4: Storage Layer
 
 - implement `UniverseStore` protocol
@@ -50,6 +57,8 @@ Acceptance:
 
 - both stores pass identical contract tests
 - nested `Security` and deliverable data round trip
+
+Status: implemented for in-memory and SQLite stores.
 
 ## Phase 5: Registry
 
@@ -63,11 +72,15 @@ Acceptance:
 - registry tests pass
 - examples can use memory and SQLite registries
 
+Status: implemented.
+
 ## Phase 6: Import/Export
 
 - CSV import/export
 - JSON import/export
 - resolver-aware imports
+
+Status: implemented.
 
 ## Phase 7: CLI
 
@@ -79,12 +92,17 @@ Acceptance:
 - support db and option-rules config
 - support text and JSON output
 
+Status: implemented.
+
 ## Phase 8: Examples and Documentation
 
 - complete executable examples
 - verify README
 - verify docs and examples
 - update changelog
+
+Status: examples are executable; documentation and changelog should be kept in
+sync as implementation changes.
 
 ## Phase 9: GitHub and PyPI Release
 
@@ -95,6 +113,9 @@ Acceptance:
 - validate package data in built wheel
 - publish first to TestPyPI
 - publish to PyPI
+
+Status: metadata, license, CI, release workflow, and package-data validation are
+in place. TestPyPI and PyPI publishing remain.
 
 Acceptance:
 
