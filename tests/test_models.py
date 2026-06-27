@@ -4,7 +4,7 @@ from decimal import Decimal
 import pytest
 from pydantic import ValidationError as PydanticValidationError
 
-from security_universes import (
+from security_universe import (
     ExpirationSession,
     OptionType,
     Security,

@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from security_universes.models import Security, UniverseMember
+from security_universe.models import Security, UniverseMember
 
 CSV_FIELDS = [
     "symbol",

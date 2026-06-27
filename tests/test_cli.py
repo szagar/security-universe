@@ -1,10 +1,10 @@
 import json
 
-from security_universes.cli import main
+from security_universe.cli import main
 
 
 def test_cli_store_init(tmp_path, capsys) -> None:
-    db = tmp_path / "universes.db"
+    db = tmp_path / "universe.db"
 
     exit_code = main(["--db", str(db), "store", "init"])
 
@@ -15,7 +15,7 @@ def test_cli_store_init(tmp_path, capsys) -> None:
 
 
 def test_cli_universe_create_add_members_json(tmp_path, capsys) -> None:
-    db = tmp_path / "universes.db"
+    db = tmp_path / "universe.db"
 
     assert main(["--db", str(db), "universe", "create", "restricted", "--type", "restricted"]) == 0
     assert (
@@ -58,7 +58,7 @@ def test_cli_universe_create_add_members_json(tmp_path, capsys) -> None:
 
 
 def test_cli_universe_resolve_include_exclude(tmp_path, capsys) -> None:
-    db = tmp_path / "universes.db"
+    db = tmp_path / "universe.db"
     assert main(["--db", str(db), "universe", "create", "sp500", "--type", "index"]) == 0
     assert (
         main(["--db", str(db), "universe", "create", "restricted", "--type", "restricted"])
@@ -133,7 +133,7 @@ def test_cli_rules_validate(tmp_path, capsys) -> None:
 
 
 def test_cli_import_export_json(tmp_path, capsys) -> None:
-    db = tmp_path / "universes.db"
+    db = tmp_path / "universe.db"
     import_path = tmp_path / "members.json"
     export_path = tmp_path / "exported.json"
     import_path.write_text(

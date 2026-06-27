@@ -12,7 +12,7 @@ from typing import Any, Mapping
 
 import yaml
 
-from security_universes.models import (
+from security_universe.models import (
     ExpirationSession,
     OptionType,
     Security,
@@ -103,7 +103,7 @@ def _read_yaml_mapping(path: str | Path) -> dict[str, dict[str, Any]]:
 
 
 def _read_package_yaml(name: str) -> dict[str, dict[str, Any]]:
-    resource = resources.files("security_universes.resolvers.data").joinpath(name)
+    resource = resources.files("security_universe.resolvers.data").joinpath(name)
     data = yaml.safe_load(resource.read_text(encoding="utf-8")) or {}
     if not isinstance(data, dict):
         raise ValueError(f"Packaged rule file must contain a mapping: {name}")

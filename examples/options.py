@@ -1,7 +1,7 @@
 """OCC option resolver example."""
 
-from security_universes import Security, SecurityType, UniverseRegistry
-from security_universes.resolvers.occ import OCCSecurityIdResolver
+from security_universe import Security, SecurityType, UniverseRegistry
+from security_universe.resolvers.occ import OCCSecurityIdResolver
 
 
 def main() -> None:

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Protocol
 
-from security_universes.models import Security, Universe, UniverseMember
+from security_universe.models import Security, Universe, UniverseMember
 
 
 class SecurityIdResolver(Protocol):

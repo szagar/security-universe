@@ -2,7 +2,7 @@
 
 ## Purpose
 
-`security-universes` manages named collections of tradable instruments without
+`security-universe` manages named collections of tradable instruments without
 becoming a broker SDK, market-data client, order router, risk engine, or
 security master.
 

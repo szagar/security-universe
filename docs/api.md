@@ -3,7 +3,7 @@
 This document defines the intended public Python API.
 
 Concrete implementation may split classes across modules, but these names
-should be exported from `security_universes`.
+should be exported from `security_universe`.
 
 ## Enums
 
@@ -251,7 +251,7 @@ class UniverseRegistry:
 resolver = OCCSecurityIdResolver.from_yaml("my_index_option_rules.yaml")
 
 registry = UniverseRegistry.sqlite(
-    "universes.db",
+    "universe.db",
     security_id_resolver=resolver,
 )
 ```

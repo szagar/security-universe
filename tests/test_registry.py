@@ -2,14 +2,14 @@ from datetime import datetime, timedelta, timezone
 
 import pytest
 
-from security_universes import (
+from security_universe import (
     Security,
     SecurityType,
     UniverseNotFoundError,
     UniverseRegistry,
     UniverseType,
 )
-from security_universes.resolvers import OCCSecurityIdResolver
+from security_universe.resolvers import OCCSecurityIdResolver
 
 
 def test_registry_creates_and_lists_universes() -> None:

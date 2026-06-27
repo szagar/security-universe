@@ -1,5 +1,5 @@
 [project]
-name = "security-universes"
+name = "security-universe"
 version = "0.1.0"
 description = "Security universe management for trading systems"
 readme = "README.md"
@@ -21,12 +21,12 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/szagar/security-universes"
-Repository = "https://github.com/szagar/security-universes"
-Issues = "https://github.com/szagar/security-universes/issues"
+Homepage = "https://github.com/szagar/security-universe"
+Repository = "https://github.com/szagar/security-universe"
+Issues = "https://github.com/szagar/security-universe/issues"
 
 [project.scripts]
-securities = "security_universes.cli:main"
+securities = "security_universe.cli:main"
 
 [build-system]
 requires = ["uv_build>=0.8.3,<0.9.0"]

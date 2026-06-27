@@ -3,14 +3,14 @@ from decimal import Decimal
 
 import pytest
 
-from security_universes import (
+from security_universe import (
     ExpirationSession,
     OptionType,
     Security,
     SecurityType,
     SettlementType,
 )
-from security_universes.resolvers import (
+from security_universe.resolvers import (
     OCCSecurityIdResolver,
     format_strike,
     load_default_option_rules,

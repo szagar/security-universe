@@ -3,7 +3,7 @@ from decimal import Decimal
 
 import pytest
 
-from security_universes import (
+from security_universe import (
     DuplicateMemberError,
     DuplicateUniverseError,
     InMemoryUniverseStore,

@@ -24,7 +24,7 @@ Status: implemented.
 
 Acceptance:
 
-- models import from `security_universes`
+- models import from `security_universe`
 - model tests pass
 - README model snippets are executable
 
@@ -33,7 +33,7 @@ Status: implemented.
 ## Phase 3: Resolver Layer
 
 - implement `SecurityIdResolver`
-- implement OCC parser in `security_universes/resolvers/occ.py`
+- implement OCC parser in `security_universe/resolvers/occ.py`
 - load packaged YAML rules from `resolvers/data/`
 - support user overrides
 - support adjusted deliverable enrichment

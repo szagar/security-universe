@@ -1,6 +1,6 @@
 """Basic in-memory usage example."""
 
-from security_universes import Security, SecurityType, UniverseRegistry
+from security_universe import Security, SecurityType, UniverseRegistry
 
 
 def main() -> None:

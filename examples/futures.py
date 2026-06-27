@@ -1,6 +1,6 @@
 """Futures universe example."""
 
-from security_universes import SecurityType, UniverseRegistry
+from security_universe import SecurityType, UniverseRegistry
 
 
 def main() -> None:
