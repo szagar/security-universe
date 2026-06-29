@@ -11,6 +11,18 @@ class SecurityIdResolver(Protocol):
     def resolve(self, security: Security) -> Security: ...
 
 
+class ActiveContractLookup(Protocol):
+    """Resolve a futures root to its current front-month dated symbol (e.g. ``ES`` → ``/ESU6``).
+
+    This is the one extension point allowed to be impure: implementations may hit the network,
+    require credentials, and return different answers over time (the active contract rolls
+    quarterly). Returning ``None`` signals "couldn't determine" — callers fall back to a
+    deterministic id rather than failing.
+    """
+
+    def active_contract(self, root: str) -> str | None: ...
+
+
 class UniverseStore(Protocol):
     def create_universe(self, universe: Universe) -> Universe: ...
     def delete_universe(self, name: str) -> None: ...

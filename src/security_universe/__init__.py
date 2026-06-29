@@ -18,11 +18,12 @@ from security_universe.models import (
     UniverseMember,
     UniverseType,
 )
-from security_universe.protocols import SecurityIdResolver
+from security_universe.protocols import ActiveContractLookup, SecurityIdResolver
 from security_universe.registry import UniverseRegistry
 from security_universe.stores import InMemoryUniverseStore, SQLiteUniverseStore
 
 __all__ = [
+    "ActiveContractLookup",
     "DuplicateMemberError",
     "DuplicateUniverseError",
     "ExpirationSession",
