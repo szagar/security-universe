@@ -72,11 +72,30 @@ class DomainModel(BaseModel):
 
 
 class Security(DomainModel):
-    symbol: str
+    symbol: str = Field(
+        description=(
+            "The native symbol exactly as supplied by the caller (broker, vendor, "
+            "or user). Provenance is the caller's: this is NOT guaranteed to be the "
+            "broker order symbol or a normalized form. Use `security_id` for "
+            "canonical identity and `order_symbol` for the broker order symbol."
+        )
+    )
     security_type: SecurityType = SecurityType.UNKNOWN
 
     security_id: str | None = None
     short_name: str | None = None
+
+    order_symbol: str | None = Field(
+        default=None,
+        description=(
+            "The broker order symbol (e.g. the TastyTrade futures-option symbol "
+            "`./ESU6 E1CN6 260701C6325`). For most families it is algorithmic from "
+            "`security_id`; for options-on-futures it is opaque (carries a CME series "
+            "code) and must be carried. A market-data source that read the chain is "
+            "its authoritative populator; resolvers may set it as a best-effort "
+            "fallback when the input `symbol` is itself a recognized order symbol."
+        ),
+    )
 
     exchange: str | None = None
     currency: str | None = None

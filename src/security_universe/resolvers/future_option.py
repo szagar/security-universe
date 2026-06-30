@@ -182,13 +182,11 @@ class FutureOptionSecurityIdResolver:
                 or SettlementType.PHYSICAL,  # futures options deliver the future
                 "contract_multiplier": security.contract_multiplier
                 or decimal_or_none(rule.get("contract_multiplier")),
-                # Non-lossy round-trip: the order symbol + series code live on the
-                # Security itself, so to_tt(OF) is a field read, not a registry lookup.
-                "metadata": {
-                    **security.metadata,
-                    "native_symbol": security.symbol,
-                    "product_code": parsed.product_code,
-                    "underlying_future": parsed.underlying_future,
-                },
+                # Non-lossy round-trip: the OF order symbol is opaque (carries the
+                # CME series code), so carry it explicitly. Best-effort here because
+                # the input symbol IS the order symbol when this resolver matches;
+                # a market-data source that read the chain is the authoritative
+                # populator. (product code -> option_root, future -> underlying.)
+                "order_symbol": security.order_symbol or security.symbol,
             }
         )

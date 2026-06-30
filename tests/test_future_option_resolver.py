@@ -82,11 +82,14 @@ def test_resolves_es_call_with_enrichment() -> None:
     assert s.contract_multiplier == Decimal("50")
 
 
-def test_metadata_carries_native_symbol_for_round_trip() -> None:
+def test_order_symbol_carries_native_symbol_for_round_trip() -> None:
     s = FutureOptionSecurityIdResolver.default().resolve(Security(symbol=ES_CALL))
-    assert s.metadata["native_symbol"] == ES_CALL
-    assert s.metadata["product_code"] == "E1CN6"
-    assert s.metadata["underlying_future"] == "ESU6"
+    # The opaque order symbol round-trips off the Security itself (no registry).
+    assert s.order_symbol == ES_CALL
+    # Its decomposed parts live in the natural fields, not metadata.
+    assert s.option_root == "E1CN6"          # the CME series/product code
+    assert s.underlying == "ESU6"            # the underlying future contract
+    assert s.metadata == {}                  # nothing stuffed into metadata
 
 
 def test_self_detects_without_security_type() -> None:
@@ -155,7 +158,7 @@ def test_from_yaml_overrides_rules(tmp_path) -> None:
 def test_routes_through_default_resolver_chain() -> None:
     s = ResolverChain.default().resolve(Security(symbol=ES_CALL))
     assert s.security_id == "future_option:ES:U6:2026-07-01:call:6325"
-    assert s.metadata["native_symbol"] == ES_CALL
+    assert s.order_symbol == ES_CALL
 
 
 def test_chain_still_resolves_other_families() -> None:
