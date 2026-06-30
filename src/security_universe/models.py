@@ -15,6 +15,7 @@ class SecurityType(StrEnum):
     ETF = "etf"
     FUTURE = "future"
     OPTION = "option"
+    FUTURE_OPTION = "future_option"
     CRYPTO = "crypto"
     FX = "fx"
     BOND = "bond"

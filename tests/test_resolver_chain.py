@@ -34,4 +34,4 @@ def test_chain_uses_occ_self_detection_without_a_type() -> None:
 
 
 def test_resolvers_property_exposes_members() -> None:
-    assert len(ResolverChain.default().resolvers) == 4
+    assert len(ResolverChain.default().resolvers) == 5

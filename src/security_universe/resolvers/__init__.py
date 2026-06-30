@@ -19,6 +19,14 @@ from security_universe.resolvers.future import (
     future_short_name,
     parse_future_symbol,
 )
+from security_universe.resolvers.future_option import (
+    FutureOptionSecurityIdResolver,
+    ParsedFutureOption,
+    future_option_security_id,
+    future_option_short_name,
+    load_default_future_option_rules,
+    parse_future_option_symbol,
+)
 from security_universe.resolvers.occ import (
     OCCSecurityIdResolver,
     ParsedOCCSymbol,
@@ -52,6 +60,13 @@ __all__ = [
     "future_security_id",
     "future_short_name",
     "parse_future_symbol",
+    # future options
+    "FutureOptionSecurityIdResolver",
+    "ParsedFutureOption",
+    "future_option_security_id",
+    "future_option_short_name",
+    "load_default_future_option_rules",
+    "parse_future_option_symbol",
     # crypto
     "CryptoSecurityIdResolver",
     "ParsedCryptoSymbol",

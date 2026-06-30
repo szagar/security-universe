@@ -1,0 +1,25 @@
+# Future-option enrichment, keyed by the underlying future PRODUCT root (not the
+# option series code). Parsed identity (root/contract/expiry/strike/type) comes
+# from the symbol; this table supplies semantics the symbol doesn't carry.
+#
+# Fields (all optional):
+#   settlement_type      cash | physical   (futures options are typically physical)
+#   contract_multiplier  point value of the underlying future
+#
+# Unknown roots fall back to settlement_type=physical, contract_multiplier=None.
+
+# --- CME equity index ---
+ES:  { settlement_type: physical, contract_multiplier: 50 }   # E-mini S&P 500
+MES: { settlement_type: physical, contract_multiplier: 5 }    # Micro E-mini S&P 500
+NQ:  { settlement_type: physical, contract_multiplier: 20 }   # E-mini Nasdaq-100
+MNQ: { settlement_type: physical, contract_multiplier: 2 }    # Micro E-mini Nasdaq-100
+RTY: { settlement_type: physical, contract_multiplier: 50 }   # E-mini Russell 2000
+YM:  { settlement_type: physical, contract_multiplier: 5 }    # E-mini Dow
+
+# --- energy ---
+CL:  { settlement_type: physical, contract_multiplier: 1000 } # Crude Oil
+NG:  { settlement_type: physical, contract_multiplier: 10000 } # Natural Gas
+
+# --- metals ---
+GC:  { settlement_type: physical, contract_multiplier: 100 }  # Gold
+SI:  { settlement_type: physical, contract_multiplier: 5000 } # Silver

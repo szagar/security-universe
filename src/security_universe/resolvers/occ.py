@@ -6,11 +6,8 @@ import re
 from dataclasses import dataclass
 from datetime import date
 from decimal import Decimal
-from importlib import resources
 from pathlib import Path
 from typing import Any, Mapping
-
-import yaml
 
 from security_universe.models import (
     ExpirationSession,
@@ -18,6 +15,13 @@ from security_universe.models import (
     Security,
     SecurityType,
     SettlementType,
+)
+from security_universe.resolvers._rules import (
+    decimal_or_none,
+    enum_or_none,
+    normalize_rule_mapping,
+    read_package_yaml,
+    read_yaml_mapping,
 )
 
 OCC_RE = re.compile(
@@ -94,48 +98,11 @@ def option_security_id(
     )
 
 
-def _read_yaml_mapping(path: str | Path) -> dict[str, dict[str, Any]]:
-    with Path(path).open("r", encoding="utf-8") as file:
-        data = yaml.safe_load(file) or {}
-    if not isinstance(data, dict):
-        raise ValueError(f"Rule file must contain a mapping: {path}")
-    return _normalize_rule_mapping(data)
-
-
-def _read_package_yaml(name: str) -> dict[str, dict[str, Any]]:
-    resource = resources.files("security_universe.resolvers.data").joinpath(name)
-    data = yaml.safe_load(resource.read_text(encoding="utf-8")) or {}
-    if not isinstance(data, dict):
-        raise ValueError(f"Packaged rule file must contain a mapping: {name}")
-    return _normalize_rule_mapping(data)
-
-
-def _normalize_rule_mapping(data: Mapping[Any, Any]) -> dict[str, dict[str, Any]]:
-    normalized: dict[str, dict[str, Any]] = {}
-    for root, rule in data.items():
-        if not isinstance(root, str) or not isinstance(rule, dict):
-            raise ValueError("Option-root rules must map root strings to mappings")
-        normalized[root.upper()] = dict(rule)
-    return normalized
-
-
 def load_default_option_rules() -> dict[str, dict[str, Any]]:
     rules: dict[str, dict[str, Any]] = {}
     for file_name in DEFAULT_RULE_FILES:
-        rules.update(_read_package_yaml(file_name))
+        rules.update(read_package_yaml(file_name))
     return rules
-
-
-def _enum_or_none(enum_type, value: Any):
-    if value is None:
-        return None
-    return enum_type(value)
-
-
-def _decimal_or_none(value: Any) -> Decimal | None:
-    if value is None:
-        return None
-    return Decimal(str(value))
 
 
 class OCCSecurityIdResolver:
@@ -143,7 +110,7 @@ class OCCSecurityIdResolver:
         self,
         option_rules: Mapping[str, Mapping[str, Any]] | None = None,
     ) -> None:
-        self._option_rules = _normalize_rule_mapping(option_rules or {})
+        self._option_rules = normalize_rule_mapping(option_rules or {})
 
     @classmethod
     def default(cls) -> "OCCSecurityIdResolver":
@@ -157,7 +124,7 @@ class OCCSecurityIdResolver:
         include_defaults: bool = True,
     ) -> "OCCSecurityIdResolver":
         rules = load_default_option_rules() if include_defaults else {}
-        rules.update(_read_yaml_mapping(path))
+        rules.update(read_yaml_mapping(path))
         return cls(rules)
 
     @property
@@ -199,13 +166,13 @@ class OCCSecurityIdResolver:
                 "strike": security.strike or parsed.strike,
                 "option_type": security.option_type or parsed.option_type,
                 "expiration_session": security.expiration_session
-                or _enum_or_none(ExpirationSession, rule.get("expiration_session"))
+                or enum_or_none(ExpirationSession, rule.get("expiration_session"))
                 or ExpirationSession.UNKNOWN,
                 "settlement_type": security.settlement_type
-                or _enum_or_none(SettlementType, rule.get("settlement_type"))
+                or enum_or_none(SettlementType, rule.get("settlement_type"))
                 or SettlementType.UNKNOWN,
                 "contract_multiplier": security.contract_multiplier
-                or _decimal_or_none(rule.get("contract_multiplier")),
+                or decimal_or_none(rule.get("contract_multiplier")),
                 "deliverable_type": security.deliverable_type
                 or rule.get("deliverable_type"),
                 "deliverable_description": security.deliverable_description
