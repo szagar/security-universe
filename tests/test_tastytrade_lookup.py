@@ -5,7 +5,7 @@ from dataclasses import dataclass
 import pytest
 
 from security_universe.resolvers import (
-    ChainResolver,
+    ResolverChain,
     TastytradeActiveContractLookup,
 )
 
@@ -100,6 +100,6 @@ def test_chain_with_tastytrade_resolves_active_contract(monkeypatch: pytest.Monk
     chain = [_FakeFuture("/ESU6", active_month=True)]
     _install_fake_sdk(monkeypatch, chain, [])
 
-    resolver = ChainResolver.with_tastytrade(session=object())
+    resolver = ResolverChain.with_tastytrade(session=object())
     out = resolver.resolve(Security(symbol="/ES", security_type=SecurityType.FUTURE))
     assert out.security_id == "future:ES:U6"

@@ -1,4 +1,9 @@
-"""Composite resolver that dispatches across several single-family resolvers."""
+"""A chain-of-responsibility over several single-family identity resolvers.
+
+"Chain" here means chain-of-responsibility (try each resolver in turn) — NOT an
+option chain. This composes :class:`SecurityIdResolver` implementations; it has
+nothing to do with option-chain market data.
+"""
 
 from __future__ import annotations
 
@@ -12,7 +17,7 @@ from security_universe.resolvers.future import FutureSecurityIdResolver
 from security_universe.resolvers.occ import OCCSecurityIdResolver
 
 
-class ChainResolver:
+class ResolverChain:
     """Try each member resolver in order; return the first that assigns a ``security_id``.
 
     Each member returns the security unchanged when it doesn't apply, so a chain lets a single
@@ -37,7 +42,7 @@ class ChainResolver:
         return current
 
     @classmethod
-    def default(cls) -> "ChainResolver":
+    def default(cls) -> "ResolverChain":
         """OCC options + equities + futures + crypto — covers the common instrument families.
 
         Pure, offline, deterministic: futures ``/ROOT`` symbols resolve to ``future:{root}:active``
@@ -53,7 +58,7 @@ class ChainResolver:
         )
 
     @classmethod
-    def with_tastytrade(cls, session: object) -> "ChainResolver":
+    def with_tastytrade(cls, session: object) -> "ResolverChain":
         """Like :meth:`default`, but futures ``/ROOT`` resolves to the live front-month contract.
 
         Requires the optional ``tastytrade`` extra and a ``tastytrade.Session``. Network/auth

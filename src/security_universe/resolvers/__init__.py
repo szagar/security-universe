@@ -1,6 +1,6 @@
 """Resolver implementations and packaged resolver data."""
 
-from security_universe.resolvers.chain import ChainResolver
+from security_universe.resolvers.chain import ResolverChain
 from security_universe.resolvers.crypto import (
     CryptoSecurityIdResolver,
     ParsedCryptoSymbol,
@@ -32,7 +32,7 @@ from security_universe.resolvers.tastytrade import TastytradeActiveContractLooku
 
 __all__ = [
     # composite
-    "ChainResolver",
+    "ResolverChain",
     # options (OCC)
     "OCCSecurityIdResolver",
     "ParsedOCCSymbol",
