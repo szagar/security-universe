@@ -6,12 +6,13 @@ readme = "README.md"
 authors = [
     { name = "Stephen Zagar", email = "szagar@gmail.com" }
 ]
-requires-python = ">=3.12"
+requires-python = ">=3.11"
 license = "MIT"
 keywords = ["trading", "securities", "universes", "watchlists"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Typing :: Typed",
 ]
