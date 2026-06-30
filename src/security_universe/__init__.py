@@ -21,6 +21,7 @@ from security_universe.models import (
 from security_universe.protocols import ActiveContractLookup, SecurityIdResolver
 from security_universe.registry import UniverseRegistry
 from security_universe.stores import InMemoryUniverseStore, SQLiteUniverseStore
+from security_universe.symbology import occ_symbol, to_tt
 
 __all__ = [
     "ActiveContractLookup",
@@ -36,6 +37,8 @@ __all__ = [
     "SourceType",
     "InMemoryUniverseStore",
     "SQLiteUniverseStore",
+    "occ_symbol",
+    "to_tt",
     "Universe",
     "UniverseMember",
     "UniverseNotFoundError",
