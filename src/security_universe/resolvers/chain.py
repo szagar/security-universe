@@ -14,6 +14,7 @@ from security_universe.protocols import SecurityIdResolver
 from security_universe.resolvers.crypto import CryptoSecurityIdResolver
 from security_universe.resolvers.equity import EquitySecurityIdResolver
 from security_universe.resolvers.future import FutureSecurityIdResolver
+from security_universe.resolvers.index import IndexSecurityIdResolver
 from security_universe.resolvers.future_option import FutureOptionSecurityIdResolver
 from security_universe.resolvers.occ import OCCSecurityIdResolver
 
@@ -44,7 +45,7 @@ class ResolverChain:
 
     @classmethod
     def default(cls) -> "ResolverChain":
-        """Future options + OCC options + equities + futures + crypto — the common families.
+        """Future options + OCC options + equities + indices + futures + crypto — the common families.
 
         Pure, offline, deterministic: futures ``/ROOT`` symbols resolve to ``future:{root}:active``
         rather than a dated contract. Use :meth:`with_tastytrade` for live front-month resolution.
@@ -55,6 +56,7 @@ class ResolverChain:
                 FutureOptionSecurityIdResolver.default(),
                 OCCSecurityIdResolver.default(),
                 EquitySecurityIdResolver(),
+                IndexSecurityIdResolver(),
                 FutureSecurityIdResolver(),
                 CryptoSecurityIdResolver(),
             )
@@ -75,6 +77,7 @@ class ResolverChain:
                 FutureOptionSecurityIdResolver.default(),
                 OCCSecurityIdResolver.default(),
                 EquitySecurityIdResolver(),
+                IndexSecurityIdResolver(),
                 FutureSecurityIdResolver(active_lookup=TastytradeActiveContractLookup(session)),
                 CryptoSecurityIdResolver(),
             )

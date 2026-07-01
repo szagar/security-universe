@@ -11,6 +11,10 @@ from security_universe.resolvers.equity import (
     EquitySecurityIdResolver,
     equity_security_id,
 )
+from security_universe.resolvers.index import (
+    IndexSecurityIdResolver,
+    index_security_id,
+)
 from security_universe.resolvers.future import (
     FutureSecurityIdResolver,
     ParsedFutureSymbol,
@@ -52,6 +56,9 @@ __all__ = [
     # equities
     "EquitySecurityIdResolver",
     "equity_security_id",
+    # indices
+    "IndexSecurityIdResolver",
+    "index_security_id",
     # futures
     "FutureSecurityIdResolver",
     "ParsedFutureSymbol",

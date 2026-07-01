@@ -13,6 +13,7 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator
 class SecurityType(StrEnum):
     STOCK = "stock"
     ETF = "etf"
+    INDEX = "index"
     FUTURE = "future"
     OPTION = "option"
     FUTURE_OPTION = "future_option"
